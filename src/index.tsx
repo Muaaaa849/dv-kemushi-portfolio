@@ -1,6 +1,5 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
-import { jwt } from 'hono/jwt'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { renderer } from './renderer'
 
@@ -496,17 +495,17 @@ app.get('/admin/dashboard', async (c) => {
 })
 
 // API Routes
-// Login API
+// Login API (simplified without JWT for now)
 app.post('/api/admin/login', async (c) => {
   const { password } = await c.req.json()
   const env = c.env
   
   if (password === (env.ADMIN_PASSWORD || 'admin123')) {
-    const payload = {
-      sub: 'admin',
-      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24), // 24 hours
-    }
-    const token = await jwt.sign(payload, env.JWT_SECRET || 'secret-key')
+    // Simple token generation without JWT library
+    const token = btoa(JSON.stringify({
+      admin: true,
+      timestamp: Date.now()
+    }))
     return c.json({ success: true, token })
   }
   
