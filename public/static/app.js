@@ -724,12 +724,56 @@ function setupServiceCards() {
   });
 }
 
+// Navigation scroll indicator
+function setupNavScrollIndicator() {
+  const navContainers = document.querySelectorAll('.nav-links-container');
+  
+  navContainers.forEach(container => {
+    // Check scroll position and add/remove indicator classes
+    function updateScrollIndicators() {
+      const scrollLeft = container.scrollLeft;
+      const scrollWidth = container.scrollWidth;
+      const clientWidth = container.clientWidth;
+      
+      // If content is scrollable
+      if (scrollWidth > clientWidth) {
+        // Show left indicator if scrolled right
+        if (scrollLeft > 5) {
+          container.classList.add('scroll-left');
+        } else {
+          container.classList.remove('scroll-left');
+        }
+        
+        // Show right indicator if not at the end
+        if (scrollLeft < scrollWidth - clientWidth - 5) {
+          container.classList.add('scroll-right');
+        } else {
+          container.classList.remove('scroll-right');
+        }
+      } else {
+        // Remove all indicators if content fits
+        container.classList.remove('scroll-left', 'scroll-right');
+      }
+    }
+    
+    // Update on scroll
+    container.addEventListener('scroll', updateScrollIndicators, { passive: true });
+    
+    // Update on resize
+    window.addEventListener('resize', updateScrollIndicators, { passive: true });
+    
+    // Initial check
+    setTimeout(updateScrollIndicators, 100);
+  });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   createRainEffect();
   createWindowEffects();
   setupRippleEffect();
   setupServiceCards();
+  setupNavScrollIndicator(); // Add navigation scroll indicator setup
   loadAvailableDate();
   loadRecentWorks();
   loadPortfolio();

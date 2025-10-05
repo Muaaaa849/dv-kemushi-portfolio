@@ -33,14 +33,16 @@ app.get('/', async (c) => {
                 <span class="font-bold">DV</span><span class="font-light">けむし</span>
               </h1>
             </div>
-            <div class="flex items-center space-x-8">
-              <a href="/" class="text-gray-700 hover:text-gray-900 transition">Home</a>
-              <a href="/portfolio" class="text-gray-700 hover:text-gray-900 transition">Portfolio</a>
-              <a href="/pricing" class="text-gray-700 hover:text-gray-900 transition">Pricing</a>
-              <a href="/contact" class="text-gray-700 hover:text-gray-900 transition">Contact</a>
-              <a href="/admin" class="text-gray-500 hover:text-gray-700 transition text-sm">
-                <i class="fas fa-lock"></i>
-              </a>
+            <div class="nav-links-container overflow-x-auto">
+              <div class="flex items-center space-x-4 sm:space-x-6 md:space-x-8 px-2">
+                <a href="/" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Home</a>
+                <a href="/portfolio" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Portfolio</a>
+                <a href="/pricing" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Pricing</a>
+                <a href="/contact" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Contact</a>
+                <a href="/admin" class="text-gray-500 hover:text-gray-700 transition text-sm whitespace-nowrap">
+                  <i class="fas fa-lock"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -182,11 +184,13 @@ app.get('/portfolio', async (c) => {
                 <span class="whitespace-nowrap"><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
               </a>
             </div>
-            <div class="flex items-center space-x-8">
-              <a href="/" class="text-gray-700 hover:text-gray-900 transition">Home</a>
-              <a href="/portfolio" class="text-gray-900 font-medium">Portfolio</a>
-              <a href="/pricing" class="text-gray-700 hover:text-gray-900 transition">Pricing</a>
-              <a href="/contact" class="text-gray-700 hover:text-gray-900 transition">Contact</a>
+            <div class="nav-links-container overflow-x-auto">
+              <div class="flex items-center space-x-4 sm:space-x-6 md:space-x-8 px-2">
+                <a href="/" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Home</a>
+                <a href="/portfolio" class="text-gray-900 font-medium whitespace-nowrap">Portfolio</a>
+                <a href="/pricing" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Pricing</a>
+                <a href="/contact" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Contact</a>
+              </div>
             </div>
           </div>
         </div>
@@ -241,11 +245,13 @@ app.get('/pricing', async (c) => {
                 <span class="whitespace-nowrap"><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
               </a>
             </div>
-            <div class="flex items-center space-x-8">
-              <a href="/" class="text-gray-700 hover:text-gray-900 transition">Home</a>
-              <a href="/portfolio" class="text-gray-700 hover:text-gray-900 transition">Portfolio</a>
-              <a href="/pricing" class="text-gray-900 font-medium">Pricing</a>
-              <a href="/contact" class="text-gray-700 hover:text-gray-900 transition">Contact</a>
+            <div class="nav-links-container overflow-x-auto">
+              <div class="flex items-center space-x-4 sm:space-x-6 md:space-x-8 px-2">
+                <a href="/" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Home</a>
+                <a href="/portfolio" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Portfolio</a>
+                <a href="/pricing" class="text-gray-900 font-medium whitespace-nowrap">Pricing</a>
+                <a href="/contact" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Contact</a>
+              </div>
             </div>
           </div>
         </div>
@@ -364,11 +370,13 @@ app.get('/contact', async (c) => {
                 <span class="whitespace-nowrap"><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
               </a>
             </div>
-            <div class="flex items-center space-x-8">
-              <a href="/" class="text-gray-700 hover:text-gray-900 transition">Home</a>
-              <a href="/portfolio" class="text-gray-700 hover:text-gray-900 transition">Portfolio</a>
-              <a href="/pricing" class="text-gray-700 hover:text-gray-900 transition">Pricing</a>
-              <a href="/contact" class="text-gray-900 font-medium">Contact</a>
+            <div class="nav-links-container overflow-x-auto">
+              <div class="flex items-center space-x-4 sm:space-x-6 md:space-x-8 px-2">
+                <a href="/" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Home</a>
+                <a href="/portfolio" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Portfolio</a>
+                <a href="/pricing" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Pricing</a>
+                <a href="/contact" class="text-gray-900 font-medium whitespace-nowrap">Contact</a>
+              </div>
             </div>
           </div>
         </div>

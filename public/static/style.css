@@ -477,6 +477,76 @@ body.admin-page .window-drops {
   background: #555;
 }
 
+/* Navigation scroll container */
+.nav-links-container {
+  max-width: calc(100vw - 200px);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  position: relative;
+}
+
+/* Scroll indicators */
+.nav-links-container::before,
+.nav-links-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.nav-links-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.9), transparent);
+}
+
+.nav-links-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
+}
+
+.nav-links-container.scroll-left::before {
+  opacity: 1;
+}
+
+.nav-links-container.scroll-right::after {
+  opacity: 1;
+}
+
+.nav-links-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.nav-links-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nav-links-container::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .nav-links-container {
+    max-width: calc(100vw - 150px);
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-links-container {
+    max-width: calc(100vw - 120px);
+  }
+  
+  nav .flex.justify-between {
+    gap: 0.5rem;
+  }
+}
+
 /* Typography */
 body {
   font-family: 'Helvetica Neue', 'Arial', 'Hiragino Sans', 'Meiryo', sans-serif;
