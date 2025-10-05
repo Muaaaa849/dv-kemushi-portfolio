@@ -380,38 +380,11 @@ function setupPortfolioFilter() {
   });
 }
 
-// Contact form handler
-function setupContactForm() {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-  
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        showNotification('お問い合わせを受け付けました。ありがとうございます。');
-        form.reset();
-      } else {
-        showNotification('送信に失敗しました。もう一度お試しください。', 'error');
-      }
-    } catch (error) {
-      showNotification('エラーが発生しました。', 'error');
-    }
-  });
+// X (Twitter) Timeline loader for contact page
+function loadContactTwitterTimeline() {
+  if (window.location.pathname === '/contact' && window.twttr && window.twttr.widgets) {
+    window.twttr.widgets.load();
+  }
 }
 
 // Admin login handler
@@ -644,7 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadRecentWorks();
   loadPortfolio();
   setupPortfolioFilter();
-  setupContactForm();
+  loadContactTwitterTimeline();
   setupAdminLogin();
   setupAdminDashboard();
   loadCurrentAvailableDate();

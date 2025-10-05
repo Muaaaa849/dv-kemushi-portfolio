@@ -8,6 +8,7 @@
 ## URL
 - **開発環境**: https://3000-ihcctq8hn9zb6ka02952y-6532622b.e2b.dev
 - **本番環境**: https://dv-kemushi-portfolio.pages.dev (デプロイ後)
+- **X (Twitter)**: https://x.com/dvKemushi
 - **GitHub**: (未設定)
 
 ## 実装済み機能
@@ -34,8 +35,9 @@
    - 6段階の制作フロー説明
 
 4. **お問い合わせページ** (`/contact`)
-   - お問い合わせフォーム
-   - データベース保存
+   - X (Twitter) アカウントへのリンク
+   - DMでのお問い合わせ案内
+   - 最新ポストの表示
 
 ### 管理機能
 1. **管理者ログイン** (`/admin`)
@@ -51,7 +53,8 @@
 - `GET /api/works` - 作品一覧取得
 - `POST /api/works` - 作品追加
 - `DELETE /api/works/:id` - 作品削除
-- `POST /api/contact` - お問い合わせ送信
+- `GET /api/settings/:key` - 設定取得
+- `POST /api/settings/:key` - 設定更新
 
 ## データアーキテクチャ
 

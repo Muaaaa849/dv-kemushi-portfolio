@@ -126,20 +126,17 @@ app.get('/', async (c) => {
         </div>
       </section>
 
-      {/* Twitter Timeline Section */}
+      {/* Call to Action Section */}
       <section class="relative z-10 py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-3xl font-light text-gray-800 text-center mb-12">Latest Updates</h2>
-          <div class="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg p-6">
-            <div class="twitter-timeline-container">
-              <a class="twitter-timeline" 
-                 data-height="400"
-                 data-theme="light"
-                 href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw">
-                Latest tweets
-              </a>
-            </div>
-          </div>
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl font-light text-gray-800 mb-6">ご依頼・お問い合わせ</h2>
+          <p class="text-lg text-gray-600 mb-8">映像制作のご相談はXのDMでお気軽に</p>
+          <a href="https://x.com/dvKemushi" 
+             target="_blank" 
+             class="btn-water inline-flex items-center px-8 py-3 bg-gradient-to-r from-gray-800 to-gray-600 text-white rounded-full hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <i class="fab fa-x-twitter mr-2"></i>
+            @dvKemushi に相談する
+          </a>
         </div>
       </section>
 
@@ -148,8 +145,8 @@ app.get('/', async (c) => {
         <div class="max-w-7xl mx-auto text-center">
           <p class="mb-4">© 2024 DVけむし. All rights reserved.</p>
           <div class="space-x-4">
-            <a href="https://twitter.com/DVkemushi" target="_blank" class="hover:text-gray-300 transition">
-              <i class="fab fa-twitter"></i> Twitter
+            <a href="https://x.com/dvKemushi" target="_blank" class="hover:text-gray-300 transition">
+              <i class="fab fa-x-twitter"></i> X (Twitter)
             </a>
             <a href="https://youtube.com/@DVkemushi" target="_blank" class="hover:text-gray-300 transition">
               <i class="fab fa-youtube"></i> YouTube
@@ -370,44 +367,90 @@ app.get('/contact', async (c) => {
       </nav>
 
       <section class="relative z-10 py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto">
+        <div class="max-w-4xl mx-auto">
           <h1 class="text-4xl font-light text-gray-800 text-center mb-12">Contact</h1>
           
-          <div class="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg p-8">
-            <form id="contact-form" class="space-y-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">お名前</label>
-                <input type="text" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500" />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* X (Twitter) Contact */}
+            <div class="glass-enhanced rounded-lg shadow-lg p-8 text-center">
+              <div class="mb-6">
+                <i class="fab fa-x-twitter text-6xl text-gray-800"></i>
               </div>
-              
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">メールアドレス</label>
-                <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500" />
+              <h2 class="text-2xl font-light mb-4">X (Twitter) でお問い合わせ</h2>
+              <p class="text-gray-600 mb-6">
+                ご依頼・お問い合わせはXのDMにて承っております
+              </p>
+              <div class="space-y-4">
+                <a href="https://x.com/dvKemushi" 
+                   target="_blank" 
+                   class="btn-water inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-600 text-white rounded-full hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full">
+                  <i class="fab fa-x-twitter mr-2"></i>
+                  @dvKemushi をフォロー
+                </a>
+                <a href="https://x.com/messages/compose?recipient_id=dvKemushi" 
+                   target="_blank" 
+                   class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-400 text-white rounded-full hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full">
+                  <i class="fas fa-envelope mr-2"></i>
+                  DMを送る
+                </a>
               </div>
-              
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">依頼内容</label>
-                <select name="type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
-                  <option value="mv">イラストMV制作</option>
-                  <option value="lyric">リリックモーション制作</option>
-                  <option value="other">その他</option>
-                </select>
+              <div class="mt-6 text-sm text-gray-500">
+                <p>@dvKemushi</p>
               </div>
-              
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">詳細</label>
-                <textarea name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"></textarea>
+            </div>
+
+            {/* Latest Posts */}
+            <div class="glass-enhanced rounded-lg shadow-lg p-8">
+              <h2 class="text-2xl font-light mb-6">Latest Posts</h2>
+              <div class="twitter-timeline-container" style="max-height: 500px; overflow-y: auto;">
+                <a class="twitter-timeline" 
+                   data-height="450"
+                   data-theme="light"
+                   data-chrome="noheader nofooter noborders"
+                   href="https://x.com/dvKemushi?ref_src=twsrc%5Etfw">
+                  Latest posts from @dvKemushi
+                </a>
               </div>
-              
-              <button type="submit" class="w-full px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-300">
-                送信する
-              </button>
-            </form>
+            </div>
           </div>
 
-          <div class="mt-8 text-center text-gray-600">
-            <p>日本全国対応</p>
-            <p class="mt-2">個人・企業問わず承っております</p>
+          <div class="mt-12 text-center">
+            <div class="glass-enhanced rounded-lg shadow-lg p-8">
+              <h3 class="text-xl font-light mb-4">制作のご依頼について</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div>
+                  <div class="flex items-start">
+                    <i class="fas fa-yen-sign mt-1 mr-3 text-blue-500"></i>
+                    <div>
+                      <p class="font-medium">料金</p>
+                      <p class="text-gray-600">10,000円〜</p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-start">
+                    <i class="fas fa-calendar-alt mt-1 mr-3 text-blue-500"></i>
+                    <div>
+                      <p class="font-medium">納期</p>
+                      <p class="text-gray-600">4週間</p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-start">
+                    <i class="fas fa-globe mt-1 mr-3 text-blue-500"></i>
+                    <div>
+                      <p class="font-medium">対応エリア</p>
+                      <p class="text-gray-600">日本全国</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-6 text-gray-600">
+                個人・企業問わず承っております。<br/>
+                まずはお気軽にDMでご相談ください。
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -678,34 +721,14 @@ app.post('/api/settings/:key', async (c) => {
   }
 })
 
-// Contact form API
+// Legacy contact form API (kept for backward compatibility)
 app.post('/api/contact', async (c) => {
-  const { name, email, type, message } = await c.req.json()
-  const { env } = c
-  
-  try {
-    // Create table if not exists
-    await env.DB.prepare(`
-      CREATE TABLE IF NOT EXISTS contacts (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        type TEXT NOT NULL,
-        message TEXT NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      )
-    `).run()
-    
-    // Insert contact
-    await env.DB.prepare(`
-      INSERT INTO contacts (name, email, type, message)
-      VALUES (?, ?, ?, ?)
-    `).bind(name, email, type, message).run()
-    
-    return c.json({ success: true, message: 'お問い合わせを受け付けました。' })
-  } catch (error) {
-    return c.json({ success: false, message: error.message }, 500)
-  }
+  // Redirects to X (Twitter) DM
+  return c.json({ 
+    success: false, 
+    message: 'お問い合わせはX (Twitter) のDMで承っております。',
+    redirect: 'https://x.com/dvKemushi'
+  }, 410)
 })
 
 export default app
