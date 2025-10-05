@@ -160,6 +160,80 @@ body {
   border-left: 4px solid #ef4444;
 }
 
+/* Ripple effect */
+.ripple {
+  position: fixed;
+  border-radius: 50%;
+  background: radial-gradient(circle, 
+    rgba(173, 216, 230, 0.6) 0%, 
+    rgba(147, 197, 253, 0.4) 30%,
+    rgba(147, 197, 253, 0.2) 60%,
+    transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: ripple-animation 2s ease-out;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  filter: blur(0.5px);
+}
+
+@keyframes ripple-animation {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.8;
+    filter: blur(0px);
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    width: 400px;
+    height: 400px;
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+/* Multiple ripples with different timing */
+.ripple-2 {
+  animation-delay: 0.15s;
+  background: radial-gradient(circle, 
+    rgba(173, 216, 230, 0.4) 0%, 
+    rgba(147, 197, 253, 0.3) 40%,
+    transparent 70%);
+  animation-duration: 2.2s;
+}
+
+.ripple-3 {
+  animation-delay: 0.3s;
+  background: radial-gradient(circle, 
+    rgba(173, 216, 230, 0.3) 0%, 
+    rgba(147, 197, 253, 0.2) 50%,
+    transparent 70%);
+  animation-duration: 2.4s;
+}
+
+/* Mobile optimizations for ripple */
+@media (max-width: 768px) {
+  @keyframes ripple-animation {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0.9;
+    }
+    100% {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+    }
+  }
+  
+  .ripple {
+    animation-duration: 1.5s;
+  }
+}
+
 /* Icon animations */
 .icon-bounce {
   animation: bounce 2s infinite;

@@ -16,6 +16,182 @@ function createRainEffect() {
   }
 }
 
+// Ripple effect on click/touch
+function createRipple(event) {
+  // Prevent ripple on certain elements
+  const target = event.target;
+  if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT') {
+    return;
+  }
+  
+  // Get click/touch position
+  let x, y;
+  if (event.type === 'touchstart' || event.type === 'touchmove' || event.type === 'touchend') {
+    const touch = event.touches[0] || event.changedTouches[0];
+    x = touch.clientX;
+    y = touch.clientY + window.scrollY;
+  } else {
+    x = event.clientX;
+    y = event.clientY + window.scrollY;
+  }
+  
+  // Create multiple ripples for layered effect
+  const rippleCount = event.target.tagName === 'BUTTON' || event.target.tagName === 'A' ? 4 : 3;
+  
+  for (let i = 0; i < rippleCount; i++) {
+    const ripple = document.createElement('div');
+    ripple.className = i === 0 ? 'ripple' : `ripple ripple-${(i % 3) + 1}`;
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    
+    // Add random slight offset for organic feel
+    const offsetX = (Math.random() - 0.5) * 10;
+    const offsetY = (Math.random() - 0.5) * 10;
+    ripple.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+    
+    document.body.appendChild(ripple);
+    
+    // Remove ripple after animation completes
+    setTimeout(() => {
+      ripple.remove();
+    }, 2400 + (i * 150));
+  }
+  
+  // Create water drop sound effect (visual feedback)
+  if (event.target.tagName === 'BUTTON' || event.target.classList.contains('hover-scale')) {
+    createWaterDropEffect(x, y);
+  }
+  
+  // Add subtle haptic feedback for mobile (if supported)
+  if ('vibrate' in navigator && event.type.includes('touch')) {
+    navigator.vibrate([5, 5]);
+  }
+}
+
+// Special water drop effect for interactive elements
+function createWaterDropEffect(x, y) {
+  const drop = document.createElement('div');
+  drop.style.cssText = `
+    position: fixed;
+    left: ${x}px;
+    top: ${y}px;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, rgba(173, 216, 230, 0.8), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10000;
+    animation: water-drop 0.6s ease-out;
+  `;
+  
+  // Add CSS animation dynamically
+  if (!document.querySelector('#water-drop-style')) {
+    const style = document.createElement('style');
+    style.id = 'water-drop-style';
+    style.textContent = `
+      @keyframes water-drop {
+        0% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(2);
+          opacity: 0.5;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(0);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  document.body.appendChild(drop);
+  setTimeout(() => drop.remove(), 600);
+}
+
+// Setup ripple effect listeners
+function setupRippleEffect() {
+  let isScrolling = false;
+  let scrollTimeout;
+  let lastTouchTime = 0;
+  
+  // Prevent double ripples on touch devices
+  function handleInteraction(event) {
+    // Prevent double-firing on touch devices
+    if (event.type === 'click') {
+      const now = Date.now();
+      if (now - lastTouchTime < 500) {
+        return; // Skip click if touch was recent
+      }
+    }
+    
+    if (event.type === 'touchstart') {
+      lastTouchTime = Date.now();
+    }
+    
+    if (!isScrolling) {
+      createRipple(event);
+    }
+  }
+  
+  // Mouse events
+  document.addEventListener('click', handleInteraction);
+  
+  // Touch events for mobile
+  document.addEventListener('touchstart', handleInteraction, { passive: true });
+  
+  // Long press effect for mobile
+  let longPressTimer;
+  document.addEventListener('touchstart', (e) => {
+    longPressTimer = setTimeout(() => {
+      if (!isScrolling) {
+        // Create a special stronger ripple for long press
+        createRipple(e);
+        if ('vibrate' in navigator) {
+          navigator.vibrate([10, 10, 10]);
+        }
+      }
+    }, 500);
+  }, { passive: true });
+  
+  document.addEventListener('touchend', () => {
+    clearTimeout(longPressTimer);
+  }, { passive: true });
+  
+  document.addEventListener('touchmove', () => {
+    clearTimeout(longPressTimer);
+  }, { passive: true });
+  
+  // Prevent ripples on scrolling
+  let touchStartY = 0;
+  
+  document.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  
+  document.addEventListener('touchmove', (e) => {
+    const touchY = e.touches[0].clientY;
+    if (Math.abs(touchY - touchStartY) > 10) {
+      isScrolling = true;
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 150);
+    }
+  }, { passive: true });
+  
+  document.addEventListener('scroll', () => {
+    isScrolling = true;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+    }, 150);
+  }, { passive: true });
+}
+
 // Notification system
 function showNotification(message, type = 'success') {
   const notification = document.createElement('div');
@@ -380,6 +556,7 @@ function loadTwitterTimeline() {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   createRainEffect();
+  setupRippleEffect();
   loadRecentWorks();
   loadPortfolio();
   setupPortfolioFilter();
