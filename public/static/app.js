@@ -16,6 +16,81 @@ function createRainEffect() {
   }
 }
 
+// Window effects
+function createWindowEffects() {
+  // Create curtains
+  const curtainLeft = document.createElement('div');
+  curtainLeft.className = 'curtain-left';
+  document.body.appendChild(curtainLeft);
+  
+  const curtainRight = document.createElement('div');
+  curtainRight.className = 'curtain-right';
+  document.body.appendChild(curtainRight);
+  
+  // Create window frame
+  const windowFrame = document.createElement('div');
+  windowFrame.className = 'window-frame';
+  document.body.appendChild(windowFrame);
+  
+  // Create glass reflection
+  const glassReflection = document.createElement('div');
+  glassReflection.className = 'glass-reflection';
+  document.body.appendChild(glassReflection);
+  
+  // Create window fog effect
+  const windowFog = document.createElement('div');
+  windowFog.className = 'window-fog';
+  document.body.appendChild(windowFog);
+  
+  // Create window drops container
+  const windowDrops = document.createElement('div');
+  windowDrops.className = 'window-drops';
+  document.body.appendChild(windowDrops);
+  
+  // Add drops sliding on window
+  const numberOfWindowDrops = 15;
+  for (let i = 0; i < numberOfWindowDrops; i++) {
+    setTimeout(() => {
+      createWindowDrop(windowDrops);
+    }, i * 800);
+  }
+  
+  // Continuously add new drops
+  setInterval(() => {
+    if (Math.random() > 0.3) {
+      createWindowDrop(windowDrops);
+    }
+  }, 2000);
+}
+
+function createWindowDrop(container) {
+  const drop = document.createElement('div');
+  drop.className = 'window-drop';
+  
+  // Random starting position
+  drop.style.left = Math.random() * 100 + '%';
+  drop.style.top = '0';
+  
+  // Random animation duration for variety
+  const duration = Math.random() * 3 + 4;
+  drop.style.animationDuration = duration + 's';
+  
+  // Random size
+  const size = Math.random() * 4 + 3;
+  drop.style.width = size + 'px';
+  drop.style.height = size + 'px';
+  
+  // Add slight horizontal movement
+  drop.style.animationTimingFunction = 'cubic-bezier(0.4, 0, 0.2, 1)';
+  
+  container.appendChild(drop);
+  
+  // Remove drop after animation
+  setTimeout(() => {
+    drop.remove();
+  }, duration * 1000);
+}
+
 // Ripple effect on click/touch
 function createRipple(event) {
   // Prevent ripple on certain elements
@@ -612,6 +687,7 @@ async function loadCurrentAvailableDate() {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   createRainEffect();
+  createWindowEffects();
   setupRippleEffect();
   loadAvailableDate();
   loadRecentWorks();
