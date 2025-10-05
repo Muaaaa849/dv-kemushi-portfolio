@@ -18,6 +18,12 @@ function createRainEffect() {
 
 // Window effects
 function createWindowEffects() {
+  // Skip window effects for admin pages
+  if (window.location.pathname.includes('/admin')) {
+    document.body.classList.add('admin-page');
+    return;
+  }
+  
   // Create curtains
   const curtainLeft = document.createElement('div');
   curtainLeft.className = 'curtain-left';

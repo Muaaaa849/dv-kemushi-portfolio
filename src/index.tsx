@@ -28,8 +28,8 @@ app.get('/', async (c) => {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
             <div class="flex items-center space-x-2">
-              <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
-              <h1 class="text-xl tracking-wide text-gray-800">
+              <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full flex-shrink-0" />
+              <h1 class="text-xl tracking-wide text-gray-800 whitespace-nowrap">
                 <span class="font-bold">DV</span><span class="font-light">けむし</span>
               </h1>
             </div>
@@ -84,7 +84,6 @@ app.get('/', async (c) => {
             <div class="service-card" data-service="mv">
               <div class="service-icon">
                 <i class="fas fa-video text-gray-700"></i>
-                <div class="service-title">イラストMV制作</div>
               </div>
               <div class="service-content">
                 <h3 class="text-xl font-light mb-3">イラストMV制作</h3>
@@ -94,7 +93,6 @@ app.get('/', async (c) => {
             <div class="service-card" data-service="lyric">
               <div class="service-icon">
                 <i class="fas fa-music text-gray-700"></i>
-                <div class="service-title">リリックモーション</div>
               </div>
               <div class="service-content">
                 <h3 class="text-xl font-light mb-3">リリックモーション</h3>
@@ -104,7 +102,6 @@ app.get('/', async (c) => {
             <div class="service-card" data-service="direction">
               <div class="service-icon">
                 <i class="fas fa-film text-gray-700"></i>
-                <div class="service-title">映像演出</div>
               </div>
               <div class="service-content">
                 <h3 class="text-xl font-light mb-3">映像演出</h3>
@@ -179,10 +176,10 @@ app.get('/portfolio', async (c) => {
       <nav class="relative z-10 bg-white/80 backdrop-blur-sm shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
-            <div class="flex items-center space-x-2">
-              <a href="/" class="flex items-center space-x-2 text-xl font-light tracking-wide text-gray-800">
-                <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
-                <span><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
+            <div class="flex items-center">
+              <a href="/" class="flex items-center space-x-2 text-xl tracking-wide text-gray-800">
+                <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full flex-shrink-0" />
+                <span class="whitespace-nowrap"><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
               </a>
             </div>
             <div class="flex items-center space-x-8">
@@ -238,10 +235,10 @@ app.get('/pricing', async (c) => {
       <nav class="relative z-10 bg-white/80 backdrop-blur-sm shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
-            <div class="flex items-center space-x-2">
-              <a href="/" class="flex items-center space-x-2 text-xl font-light tracking-wide text-gray-800">
-                <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
-                <span><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
+            <div class="flex items-center">
+              <a href="/" class="flex items-center space-x-2 text-xl tracking-wide text-gray-800">
+                <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full flex-shrink-0" />
+                <span class="whitespace-nowrap"><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
               </a>
             </div>
             <div class="flex items-center space-x-8">
@@ -361,10 +358,10 @@ app.get('/contact', async (c) => {
       <nav class="relative z-10 bg-white/80 backdrop-blur-sm shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
-            <div class="flex items-center space-x-2">
-              <a href="/" class="flex items-center space-x-2 text-xl font-light tracking-wide text-gray-800">
-                <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
-                <span><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
+            <div class="flex items-center">
+              <a href="/" class="flex items-center space-x-2 text-xl tracking-wide text-gray-800">
+                <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full flex-shrink-0" />
+                <span class="whitespace-nowrap"><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
               </a>
             </div>
             <div class="flex items-center space-x-8">
@@ -473,7 +470,7 @@ app.get('/contact', async (c) => {
 // Admin login page
 app.get('/admin', async (c) => {
   return c.render(
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 admin-page">
       <div class="rain-container"></div>
       
       <div class="relative z-10 bg-white/90 backdrop-blur-sm rounded-lg shadow-xl p-8 w-full max-w-md">
@@ -495,7 +492,7 @@ app.get('/admin', async (c) => {
         </div>
       </div>
     </div>,
-    { title: '管理者ログイン - DVけむし' }
+    { title: '管理者ログイン - DVけむし', bodyClass: 'admin-page' }
   )
 })
 
@@ -503,7 +500,7 @@ app.get('/admin', async (c) => {
 app.get('/admin/dashboard', async (c) => {
   // JWT verification would be here
   return c.render(
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-100 admin-page">
       <nav class="bg-gray-800 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
@@ -590,7 +587,7 @@ app.get('/admin/dashboard', async (c) => {
         </div>
       </div>
     </div>,
-    { title: '管理画面 - DVけむし' }
+    { title: '管理画面 - DVけむし', bodyClass: 'admin-page' }
   )
 })
 

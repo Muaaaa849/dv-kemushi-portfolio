@@ -1,6 +1,6 @@
 import { jsxRenderer } from 'hono/jsx-renderer'
 
-export const renderer = jsxRenderer(({ children, title }) => {
+export const renderer = jsxRenderer(({ children, title, bodyClass }) => {
   return (
     <html lang="ja">
       <head>
@@ -13,7 +13,7 @@ export const renderer = jsxRenderer(({ children, title }) => {
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
         <link href="/static/style.css" rel="stylesheet" />
       </head>
-      <body>
+      <body class={bodyClass || ''}>
         {children}
         <script src="/static/app.js"></script>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
