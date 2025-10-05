@@ -15,6 +15,7 @@
 ### 公開ページ
 1. **トップページ** (`/`)
    - 雨のアニメーション効果
+   - オリジナルアイコン表示
    - サービス紹介
    - 最新作品プレビュー
    - Twitter タイムライン埋め込み
@@ -69,6 +70,7 @@
 
 ## デザイン特徴
 - 雨のしとしと降る淡く儚いイメージ
+- オリジナルキャラクターアイコン
 - グラスモーフィズム効果
 - レスポンシブデザイン
 - スムーズなアニメーション効果
@@ -123,3 +125,12 @@ npx wrangler pages secret put JWT_SECRET --project-name dv-kemushi-portfolio
 - **Platform**: Cloudflare Pages
 - **Status**: ❌ 未デプロイ
 - **Last Updated**: 2025-10-05
+
+## ファイル構成
+```
+public/
+  icon-dvkemushi.png  # オリジナルアイコン
+  static/
+    app.js           # フロントエンドJavaScript
+    style.css        # カスタムCSS
+```

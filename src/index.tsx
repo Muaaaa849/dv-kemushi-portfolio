@@ -27,7 +27,8 @@ app.get('/', async (c) => {
       <nav class="relative z-10 bg-white/80 backdrop-blur-sm shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
-            <div class="flex items-center">
+            <div class="flex items-center space-x-2">
+              <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
               <h1 class="text-xl font-light tracking-wide text-gray-800">DVけむし</h1>
             </div>
             <div class="flex items-center space-x-8">
@@ -47,9 +48,12 @@ app.get('/', async (c) => {
       <section class="relative z-10 py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto text-center">
           <div class="space-y-8">
-            <h1 class="text-5xl sm:text-6xl font-thin text-gray-800 tracking-wider animate-fade-in">
-              DVけむし
-            </h1>
+            <div class="flex items-center justify-center space-x-4 animate-fade-in">
+              <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full shadow-lg" />
+              <h1 class="text-5xl sm:text-6xl font-thin text-gray-800 tracking-wider">
+                DVけむし
+              </h1>
+            </div>
             <p class="text-xl sm:text-2xl text-gray-600 font-light">
               映像師 / Motion Graphics Designer
             </p>
@@ -162,8 +166,11 @@ app.get('/portfolio', async (c) => {
       <nav class="relative z-10 bg-white/80 backdrop-blur-sm shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
-            <div class="flex items-center">
-              <a href="/" class="text-xl font-light tracking-wide text-gray-800">DVけむし</a>
+            <div class="flex items-center space-x-2">
+              <a href="/" class="flex items-center space-x-2 text-xl font-light tracking-wide text-gray-800">
+                <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
+                <span>DVけむし</span>
+              </a>
             </div>
             <div class="flex items-center space-x-8">
               <a href="/" class="text-gray-700 hover:text-gray-900 transition">Home</a>
@@ -218,8 +225,11 @@ app.get('/pricing', async (c) => {
       <nav class="relative z-10 bg-white/80 backdrop-blur-sm shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
-            <div class="flex items-center">
-              <a href="/" class="text-xl font-light tracking-wide text-gray-800">DVけむし</a>
+            <div class="flex items-center space-x-2">
+              <a href="/" class="flex items-center space-x-2 text-xl font-light tracking-wide text-gray-800">
+                <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
+                <span>DVけむし</span>
+              </a>
             </div>
             <div class="flex items-center space-x-8">
               <a href="/" class="text-gray-700 hover:text-gray-900 transition">Home</a>
@@ -338,8 +348,11 @@ app.get('/contact', async (c) => {
       <nav class="relative z-10 bg-white/80 backdrop-blur-sm shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
-            <div class="flex items-center">
-              <a href="/" class="text-xl font-light tracking-wide text-gray-800">DVけむし</a>
+            <div class="flex items-center space-x-2">
+              <a href="/" class="flex items-center space-x-2 text-xl font-light tracking-wide text-gray-800">
+                <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
+                <span>DVけむし</span>
+              </a>
             </div>
             <div class="flex items-center space-x-8">
               <a href="/" class="text-gray-700 hover:text-gray-900 transition">Home</a>
