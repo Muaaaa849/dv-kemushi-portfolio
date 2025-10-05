@@ -1,0 +1,395 @@
+// Rain animation
+function createRainEffect() {
+  const rainContainer = document.querySelector('.rain-container');
+  if (!rainContainer) return;
+  
+  const numberOfDrops = 50;
+  
+  for (let i = 0; i < numberOfDrops; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'rain-drop';
+    drop.style.left = Math.random() * 100 + '%';
+    drop.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    drop.style.animationDelay = Math.random() * 2 + 's';
+    drop.style.opacity = Math.random() * 0.3 + 0.3;
+    rainContainer.appendChild(drop);
+  }
+}
+
+// Notification system
+function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  notification.innerHTML = `
+    <div class="flex items-center">
+      <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} mr-2"></i>
+      <span>${message}</span>
+    </div>
+  `;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 100);
+  
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => {
+      notification.remove();
+    }, 300);
+  }, 3000);
+}
+
+// Load recent works
+async function loadRecentWorks() {
+  const container = document.getElementById('recent-works');
+  if (!container) return;
+  
+  try {
+    const response = await fetch('/api/works');
+    const data = await response.json();
+    
+    if (data.success && data.works.length > 0) {
+      const recentWorks = data.works.slice(0, 6);
+      container.innerHTML = recentWorks.map(work => `
+        <div class="bg-white rounded-lg overflow-hidden shadow-md hover-scale">
+          <div class="aspect-video bg-gray-200 relative">
+            ${work.embed_code ? `
+              <iframe 
+                src="https://www.youtube.com/embed/${extractYouTubeId(work.embed_code)}" 
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            ` : `
+              <div class="flex items-center justify-center h-full">
+                <i class="fas fa-video text-4xl text-gray-400"></i>
+              </div>
+            `}
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-gray-800">${work.title}</h3>
+            <p class="text-sm text-gray-600 mt-1">${work.category === 'mv' ? 'MV' : 'Lyric Video'}</p>
+          </div>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = `
+        <div class="col-span-full text-center py-8 text-gray-500">
+          <p>作品はまだありません</p>
+        </div>
+      `;
+    }
+  } catch (error) {
+    console.error('Failed to load works:', error);
+  }
+}
+
+// Load portfolio
+async function loadPortfolio() {
+  const container = document.getElementById('portfolio-grid');
+  if (!container) return;
+  
+  try {
+    const response = await fetch('/api/works');
+    const data = await response.json();
+    
+    if (data.success && data.works.length > 0) {
+      window.allWorks = data.works;
+      displayWorks(data.works);
+    } else {
+      container.innerHTML = `
+        <div class="col-span-full text-center py-8 text-gray-500">
+          <p>作品はまだありません</p>
+        </div>
+      `;
+    }
+  } catch (error) {
+    console.error('Failed to load portfolio:', error);
+  }
+}
+
+function displayWorks(works) {
+  const container = document.getElementById('portfolio-grid');
+  if (!container) return;
+  
+  container.innerHTML = works.map(work => `
+    <div class="portfolio-item bg-white rounded-lg overflow-hidden shadow-md" data-category="${work.category}">
+      <div class="aspect-video bg-gray-200 relative">
+        ${work.embed_code ? `
+          <iframe 
+            src="https://www.youtube.com/embed/${extractYouTubeId(work.embed_code)}" 
+            class="w-full h-full"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        ` : `
+          <div class="flex items-center justify-center h-full">
+            <i class="fas fa-video text-4xl text-gray-400"></i>
+          </div>
+        `}
+        <div class="overlay">
+          <div class="text-white">
+            <h3 class="font-medium text-lg">${work.title}</h3>
+            <p class="text-sm opacity-90">${work.description || ''}</p>
+          </div>
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="flex justify-between items-center">
+          <span class="inline-block px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
+            ${work.category === 'mv' ? 'MV' : 'Lyric Video'}
+          </span>
+          <button onclick="shareOnTwitter('${work.title.replace(/'/g, "\\'")}')"
+                  class="text-blue-500 hover:text-blue-600 transition">
+            <i class="fab fa-twitter"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Portfolio filter
+function setupPortfolioFilter() {
+  const buttons = document.querySelectorAll('[data-filter]');
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      
+      // Update button states
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-gray-800', 'text-white');
+        btn.classList.add('bg-white', 'text-gray-700');
+      });
+      button.classList.remove('bg-white', 'text-gray-700');
+      button.classList.add('bg-gray-800', 'text-white');
+      
+      // Filter works
+      if (window.allWorks) {
+        if (filter === 'all') {
+          displayWorks(window.allWorks);
+        } else {
+          displayWorks(window.allWorks.filter(work => work.category === filter));
+        }
+      }
+    });
+  });
+}
+
+// Contact form handler
+function setupContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        showNotification('お問い合わせを受け付けました。ありがとうございます。');
+        form.reset();
+      } else {
+        showNotification('送信に失敗しました。もう一度お試しください。', 'error');
+      }
+    } catch (error) {
+      showNotification('エラーが発生しました。', 'error');
+    }
+  });
+}
+
+// Admin login handler
+function setupAdminLogin() {
+  const form = document.getElementById('admin-login-form');
+  if (!form) return;
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const password = formData.get('password');
+    
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        localStorage.setItem('adminToken', result.token);
+        window.location.href = '/admin/dashboard';
+      } else {
+        showNotification('パスワードが正しくありません。', 'error');
+      }
+    } catch (error) {
+      showNotification('ログインに失敗しました。', 'error');
+    }
+  });
+}
+
+// Admin dashboard functions
+function setupAdminDashboard() {
+  // Logout handler
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('adminToken');
+      window.location.href = '/admin';
+    });
+  }
+  
+  // Add work form
+  const addWorkForm = document.getElementById('add-work-form');
+  if (addWorkForm) {
+    addWorkForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(addWorkForm);
+      const data = Object.fromEntries(formData);
+      
+      try {
+        const response = await fetch('/api/works', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+          },
+          body: JSON.stringify(data),
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showNotification('作品を追加しました。');
+          addWorkForm.reset();
+          loadWorksList();
+        } else {
+          showNotification('追加に失敗しました。', 'error');
+        }
+      } catch (error) {
+        showNotification('エラーが発生しました。', 'error');
+      }
+    });
+  }
+  
+  // Load works list
+  loadWorksList();
+}
+
+async function loadWorksList() {
+  const container = document.getElementById('works-list');
+  if (!container) return;
+  
+  try {
+    const response = await fetch('/api/works');
+    const data = await response.json();
+    
+    if (data.success && data.works.length > 0) {
+      container.innerHTML = data.works.map(work => `
+        <div class="border rounded-lg p-4 flex justify-between items-center">
+          <div>
+            <h4 class="font-medium">${work.title}</h4>
+            <p class="text-sm text-gray-600">${work.category === 'mv' ? 'MV' : 'Lyric Video'}</p>
+          </div>
+          <button onclick="deleteWork(${work.id})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+            削除
+          </button>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<p class="text-gray-500">作品がありません</p>';
+    }
+  } catch (error) {
+    console.error('Failed to load works:', error);
+  }
+}
+
+async function deleteWork(id) {
+  if (!confirm('この作品を削除しますか？')) return;
+  
+  try {
+    const response = await fetch(`/api/works/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+      },
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      showNotification('作品を削除しました。');
+      loadWorksList();
+    } else {
+      showNotification('削除に失敗しました。', 'error');
+    }
+  } catch (error) {
+    showNotification('エラーが発生しました。', 'error');
+  }
+}
+
+// YouTube ID extraction
+function extractYouTubeId(embedCode) {
+  if (!embedCode) return '';
+  
+  // If it's already just an ID
+  if (embedCode.length === 11 && !embedCode.includes('/')) {
+    return embedCode;
+  }
+  
+  // Extract from URL
+  const match = embedCode.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+  return match ? match[1] : embedCode;
+}
+
+// Share on Twitter function
+function shareOnTwitter(title) {
+  const text = `DVけむしさんの作品「${title}」をチェック！`;
+  const url = window.location.href;
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=DVけむし,映像制作,MV`;
+  window.open(twitterUrl, '_blank', 'width=600,height=400');
+}
+
+// Load Twitter Timeline
+function loadTwitterTimeline() {
+  if (window.twttr && window.twttr.widgets) {
+    window.twttr.widgets.load();
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  createRainEffect();
+  loadRecentWorks();
+  loadPortfolio();
+  setupPortfolioFilter();
+  setupContactForm();
+  setupAdminLogin();
+  setupAdminDashboard();
+  
+  // Load Twitter timeline after page load
+  setTimeout(loadTwitterTimeline, 1000);
+});
+
+// Make shareOnTwitter globally available
+window.shareOnTwitter = shareOnTwitter;
