@@ -684,11 +684,46 @@ async function loadCurrentAvailableDate() {
   }
 }
 
+// Service cards interaction
+function setupServiceCards() {
+  const serviceCards = document.querySelectorAll('.service-card');
+  if (!serviceCards.length) return;
+  
+  serviceCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      e.stopPropagation();
+      
+      // Check if this card is already expanded
+      const isExpanded = this.classList.contains('expanded');
+      
+      // Close all cards
+      serviceCards.forEach(c => {
+        c.classList.remove('expanded');
+      });
+      
+      // If it wasn't expanded, expand it
+      if (!isExpanded) {
+        this.classList.add('expanded');
+      }
+    });
+  });
+  
+  // Click outside to close
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.service-card')) {
+      serviceCards.forEach(card => {
+        card.classList.remove('expanded');
+      });
+    }
+  });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   createRainEffect();
   createWindowEffects();
   setupRippleEffect();
+  setupServiceCards();
   loadAvailableDate();
   loadRecentWorks();
   loadPortfolio();

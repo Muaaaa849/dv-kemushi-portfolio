@@ -29,7 +29,9 @@ app.get('/', async (c) => {
           <div class="flex justify-between h-16">
             <div class="flex items-center space-x-2">
               <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
-              <h1 class="text-xl font-light tracking-wide text-gray-800">DVけむし</h1>
+              <h1 class="text-xl tracking-wide text-gray-800">
+                <span class="font-bold">DV</span><span class="font-light">けむし</span>
+              </h1>
             </div>
             <div class="flex items-center space-x-8">
               <a href="/" class="text-gray-700 hover:text-gray-900 transition">Home</a>
@@ -50,8 +52,8 @@ app.get('/', async (c) => {
           <div class="space-y-8">
             <div class="flex items-center justify-center space-x-4 animate-fade-in">
               <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full shadow-lg" />
-              <h1 class="text-5xl sm:text-6xl font-thin text-gray-800 tracking-wider">
-                DVけむし
+              <h1 class="text-5xl sm:text-6xl text-gray-800 tracking-wider">
+                <span class="font-bold">DV</span><span class="font-thin">けむし</span>
               </h1>
             </div>
             <p class="text-xl sm:text-2xl text-gray-600 font-light">
@@ -78,27 +80,36 @@ app.get('/', async (c) => {
       <section class="relative z-10 py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
           <h2 class="text-3xl font-light text-gray-800 text-center mb-12">Services</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-enhanced p-8 rounded-lg shadow-lg relative overflow-hidden">
-              <div class="text-4xl mb-4 text-gray-700">
-                <i class="fas fa-video"></i>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="services-container">
+            <div class="service-card" data-service="mv">
+              <div class="service-icon">
+                <i class="fas fa-video text-gray-700"></i>
+                <div class="service-title">イラストMV制作</div>
               </div>
-              <h3 class="text-xl font-light mb-3">イラストMV制作</h3>
-              <p class="text-gray-600">ボカロ曲や歌ってみた動画に映像を付けて、作品の世界観を視覚的に表現します</p>
+              <div class="service-content">
+                <h3 class="text-xl font-light mb-3">イラストMV制作</h3>
+                <p class="text-gray-600">ボカロ曲や歌ってみた動画に映像を付けて、作品の世界観を視覚的に表現します</p>
+              </div>
             </div>
-            <div class="glass-enhanced p-8 rounded-lg shadow-lg relative overflow-hidden">
-              <div class="text-4xl mb-4 text-gray-700">
-                <i class="fas fa-music"></i>
+            <div class="service-card" data-service="lyric">
+              <div class="service-icon">
+                <i class="fas fa-music text-gray-700"></i>
+                <div class="service-title">リリックモーション</div>
               </div>
-              <h3 class="text-xl font-light mb-3">リリックモーション</h3>
-              <p class="text-gray-600">歌詞をアニメーションで魅せる、印象的なリリックビデオを制作します</p>
+              <div class="service-content">
+                <h3 class="text-xl font-light mb-3">リリックモーション</h3>
+                <p class="text-gray-600">歌詞をアニメーションで魅せる、印象的なリリックビデオを制作します</p>
+              </div>
             </div>
-            <div class="glass-enhanced p-8 rounded-lg shadow-lg relative overflow-hidden">
-              <div class="text-4xl mb-4 text-gray-700">
-                <i class="fas fa-film"></i>
+            <div class="service-card" data-service="direction">
+              <div class="service-icon">
+                <i class="fas fa-film text-gray-700"></i>
+                <div class="service-title">映像演出</div>
               </div>
-              <h3 class="text-xl font-light mb-3">映像演出</h3>
-              <p class="text-gray-600">楽曲の雰囲気に合わせた映像演出で、視聴者の心に残る作品を創り上げます</p>
+              <div class="service-content">
+                <h3 class="text-xl font-light mb-3">映像演出</h3>
+                <p class="text-gray-600">楽曲の雰囲気に合わせた映像演出で、視聴者の心に残る作品を創り上げます</p>
+              </div>
             </div>
           </div>
         </div>
@@ -171,7 +182,7 @@ app.get('/portfolio', async (c) => {
             <div class="flex items-center space-x-2">
               <a href="/" class="flex items-center space-x-2 text-xl font-light tracking-wide text-gray-800">
                 <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
-                <span>DVけむし</span>
+                <span><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
               </a>
             </div>
             <div class="flex items-center space-x-8">
@@ -230,7 +241,7 @@ app.get('/pricing', async (c) => {
             <div class="flex items-center space-x-2">
               <a href="/" class="flex items-center space-x-2 text-xl font-light tracking-wide text-gray-800">
                 <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
-                <span>DVけむし</span>
+                <span><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
               </a>
             </div>
             <div class="flex items-center space-x-8">
@@ -353,7 +364,7 @@ app.get('/contact', async (c) => {
             <div class="flex items-center space-x-2">
               <a href="/" class="flex items-center space-x-2 text-xl font-light tracking-wide text-gray-800">
                 <img src="/icon-dvkemushi.png" alt="DVけむし" class="w-8 h-8 rounded-full" />
-                <span>DVけむし</span>
+                <span><span class="font-bold">DV</span><span class="font-light">けむし</span></span>
               </a>
             </div>
             <div class="flex items-center space-x-8">
