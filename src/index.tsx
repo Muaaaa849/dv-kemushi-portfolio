@@ -57,11 +57,16 @@ app.get('/', async (c) => {
             <p class="text-xl sm:text-2xl text-gray-600 font-light">
               映像師 / Motion Graphics Designer
             </p>
-            <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-              ボカロ曲や歌ってみた動画のイラストMV、リリックモーション制作
-            </p>
+            <div class="space-y-2">
+              <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+                ボカロ曲や歌ってみた動画のイラストMV、リリックモーション制作
+              </p>
+              <div id="available-date" class="text-sm text-blue-600 font-medium">
+                {/* Available date will be loaded dynamically */}
+              </div>
+            </div>
             <div class="pt-8">
-              <a href="/portfolio" class="inline-block px-8 py-3 bg-gray-800 text-white rounded-full hover:bg-gray-700 transition duration-300 shadow-lg">
+              <a href="/portfolio" class="btn-water inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-400 text-white rounded-full hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                 作品を見る
               </a>
             </div>
@@ -74,21 +79,21 @@ app.get('/', async (c) => {
         <div class="max-w-7xl mx-auto">
           <h2 class="text-3xl font-light text-gray-800 text-center mb-12">Services</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white/70 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+            <div class="glass-enhanced p-8 rounded-lg shadow-lg relative overflow-hidden">
               <div class="text-4xl mb-4 text-gray-700">
                 <i class="fas fa-video"></i>
               </div>
               <h3 class="text-xl font-light mb-3">イラストMV制作</h3>
               <p class="text-gray-600">ボカロ曲や歌ってみた動画に映像を付けて、作品の世界観を視覚的に表現します</p>
             </div>
-            <div class="bg-white/70 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+            <div class="glass-enhanced p-8 rounded-lg shadow-lg relative overflow-hidden">
               <div class="text-4xl mb-4 text-gray-700">
                 <i class="fas fa-music"></i>
               </div>
               <h3 class="text-xl font-light mb-3">リリックモーション</h3>
               <p class="text-gray-600">歌詞をアニメーションで魅せる、印象的なリリックビデオを制作します</p>
             </div>
-            <div class="bg-white/70 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+            <div class="glass-enhanced p-8 rounded-lg shadow-lg relative overflow-hidden">
               <div class="text-4xl mb-4 text-gray-700">
                 <i class="fas fa-film"></i>
               </div>
@@ -460,18 +465,44 @@ app.get('/admin/dashboard', async (c) => {
       </nav>
 
       <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-light mb-6">作品管理</h2>
-        
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-          <h3 class="text-lg font-medium mb-4">新規作品追加</h3>
-          <form id="add-work-form" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">タイトル</label>
-                <input type="text" name="title" required class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Calendar Section */}
+          <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow p-6">
+              <h3 class="text-lg font-medium mb-4">着手可能日設定</h3>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">着手可能日</label>
+                  <input type="date" id="available-date-input" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <button onclick="updateAvailableDate()" class="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                  更新
+                </button>
+                <div id="current-available-date" class="mt-4 p-3 bg-blue-50 rounded-lg text-sm text-blue-700">
+                  {/* Current available date will be shown here */}
+                </div>
               </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">カテゴリー</label>
+            </div>
+          </div>
+          
+          {/* Works Management Section */}
+          <div class="lg:col-span-2">
+            <h2 class="text-2xl font-light mb-6">作品管理</h2>
+            
+            <div class="bg-white rounded-lg shadow p-6 mb-6">
+              <h3 class="text-lg font-medium mb-4">新規作品追加</h3>
+              <form id="add-work-form" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">タイトル</label>
+                    <input type="text" name="title" required class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">制作日</label>
+                    <input type="date" name="productionDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">カテゴリー</label>
                 <select name="category" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
                   <option value="mv">MV</option>
                   <option value="lyric">Lyric</option>
@@ -495,10 +526,12 @@ app.get('/admin/dashboard', async (c) => {
           </form>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-          <h3 class="text-lg font-medium mb-4">作品一覧</h3>
-          <div id="works-list" class="space-y-4">
-            {/* Works list will be loaded here */}
+            <div class="bg-white rounded-lg shadow p-6">
+              <h3 class="text-lg font-medium mb-4">作品一覧</h3>
+              <div id="works-list" class="space-y-4">
+                {/* Works list will be loaded here */}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -530,7 +563,7 @@ app.get('/api/works', async (c) => {
   try {
     const { env } = c
     const { results } = await env.DB.prepare(
-      'SELECT * FROM works ORDER BY created_at DESC'
+      'SELECT * FROM works ORDER BY production_date DESC, created_at DESC'
     ).all()
     return c.json({ success: true, works: results || [] })
   } catch (error) {
@@ -540,7 +573,7 @@ app.get('/api/works', async (c) => {
 })
 
 app.post('/api/works', async (c) => {
-  const { title, category, embedCode, description } = await c.req.json()
+  const { title, category, embedCode, description, productionDate } = await c.req.json()
   const { env } = c
   
   try {
@@ -552,15 +585,16 @@ app.post('/api/works', async (c) => {
         category TEXT NOT NULL,
         embed_code TEXT,
         description TEXT,
+        production_date DATE,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `).run()
     
     // Insert new work
     const result = await env.DB.prepare(`
-      INSERT INTO works (title, category, embed_code, description)
-      VALUES (?, ?, ?, ?)
-    `).bind(title, category, embedCode, description).run()
+      INSERT INTO works (title, category, embed_code, description, production_date)
+      VALUES (?, ?, ?, ?, ?)
+    `).bind(title, category, embedCode, description, productionDate || null).run()
     
     return c.json({ success: true, id: result.meta.last_row_id })
   } catch (error) {
@@ -574,6 +608,70 @@ app.delete('/api/works/:id', async (c) => {
   
   try {
     await env.DB.prepare('DELETE FROM works WHERE id = ?').bind(id).run()
+    return c.json({ success: true })
+  } catch (error) {
+    return c.json({ success: false, message: error.message }, 500)
+  }
+})
+
+// Settings API
+app.get('/api/settings/:key', async (c) => {
+  const key = c.req.param('key')
+  const { env } = c
+  
+  try {
+    // Create settings table if not exists
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS settings (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        key TEXT UNIQUE NOT NULL,
+        value TEXT NOT NULL,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `).run()
+    
+    const result = await env.DB.prepare(
+      'SELECT value FROM settings WHERE key = ?'
+    ).bind(key).first()
+    
+    if (result) {
+      return c.json({ success: true, value: result.value })
+    } else {
+      // Return default value for available_date
+      if (key === 'available_date') {
+        const defaultDate = new Date()
+        defaultDate.setDate(defaultDate.getDate() + 14)
+        return c.json({ success: true, value: defaultDate.toISOString().split('T')[0] })
+      }
+      return c.json({ success: false, message: 'Setting not found' }, 404)
+    }
+  } catch (error) {
+    return c.json({ success: false, message: error.message }, 500)
+  }
+})
+
+app.post('/api/settings/:key', async (c) => {
+  const key = c.req.param('key')
+  const { value } = await c.req.json()
+  const { env } = c
+  
+  try {
+    // Create settings table if not exists
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS settings (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        key TEXT UNIQUE NOT NULL,
+        value TEXT NOT NULL,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `).run()
+    
+    // Upsert setting
+    await env.DB.prepare(`
+      INSERT OR REPLACE INTO settings (key, value, updated_at)
+      VALUES (?, ?, CURRENT_TIMESTAMP)
+    `).bind(key, value).run()
+    
     return c.json({ success: true })
   } catch (error) {
     return c.json({ success: false, message: error.message }, 500)

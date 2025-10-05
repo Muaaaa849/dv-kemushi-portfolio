@@ -216,6 +216,25 @@ function showNotification(message, type = 'success') {
   }, 3000);
 }
 
+// Load available date
+async function loadAvailableDate() {
+  const container = document.getElementById('available-date');
+  if (!container) return;
+  
+  try {
+    const response = await fetch('/api/settings/available_date');
+    const data = await response.json();
+    
+    if (data.success && data.value) {
+      const date = new Date(data.value);
+      const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`;
+      container.innerHTML = `<i class="fas fa-calendar-check mr-1"></i> 着手可能日 ${formattedDate}～`;
+    }
+  } catch (error) {
+    console.error('Failed to load available date:', error);
+  }
+}
+
 // Load recent works
 async function loadRecentWorks() {
   const container = document.getElementById('recent-works');
@@ -226,7 +245,13 @@ async function loadRecentWorks() {
     const data = await response.json();
     
     if (data.success && data.works.length > 0) {
-      const recentWorks = data.works.slice(0, 6);
+      // Sort by production_date and get recent 6
+      const sortedWorks = data.works.sort((a, b) => {
+        if (!a.production_date) return 1;
+        if (!b.production_date) return -1;
+        return new Date(b.production_date) - new Date(a.production_date);
+      });
+      const recentWorks = sortedWorks.slice(0, 6);
       container.innerHTML = recentWorks.map(work => `
         <div class="bg-white rounded-lg overflow-hidden shadow-md hover-scale">
           <div class="aspect-video bg-gray-200 relative">
@@ -485,7 +510,10 @@ async function loadWorksList() {
         <div class="border rounded-lg p-4 flex justify-between items-center">
           <div>
             <h4 class="font-medium">${work.title}</h4>
-            <p class="text-sm text-gray-600">${work.category === 'mv' ? 'MV' : 'Lyric Video'}</p>
+            <div class="flex items-center space-x-3 text-sm text-gray-600">
+              <span>${work.category === 'mv' ? 'MV' : 'Lyric Video'}</span>
+              ${work.production_date ? `<span><i class="fas fa-calendar text-xs"></i> ${new Date(work.production_date).toLocaleDateString('ja-JP')}</span>` : ''}
+            </div>
           </div>
           <button onclick="deleteWork(${work.id})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
             削除
@@ -553,20 +581,80 @@ function loadTwitterTimeline() {
   }
 }
 
+// Update available date (admin function)
+async function updateAvailableDate() {
+  const input = document.getElementById('available-date-input');
+  if (!input || !input.value) return;
+  
+  try {
+    const response = await fetch('/api/settings/available_date', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+      },
+      body: JSON.stringify({ value: input.value }),
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      showNotification('着手可能日を更新しました');
+      loadCurrentAvailableDate();
+    } else {
+      showNotification('更新に失敗しました', 'error');
+    }
+  } catch (error) {
+    showNotification('エラーが発生しました', 'error');
+  }
+}
+
+// Load current available date in admin
+async function loadCurrentAvailableDate() {
+  const container = document.getElementById('current-available-date');
+  if (!container) return;
+  
+  try {
+    const response = await fetch('/api/settings/available_date');
+    const data = await response.json();
+    
+    if (data.success && data.value) {
+      const date = new Date(data.value);
+      container.innerHTML = `
+        <div class="text-xs text-gray-500">現在の設定</div>
+        <div class="font-medium">${date.toLocaleDateString('ja-JP')}</div>
+      `;
+      
+      // Set input value
+      const input = document.getElementById('available-date-input');
+      if (input) {
+        input.value = data.value;
+      }
+    }
+  } catch (error) {
+    console.error('Failed to load current available date:', error);
+  }
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   createRainEffect();
   setupRippleEffect();
+  loadAvailableDate();
   loadRecentWorks();
   loadPortfolio();
   setupPortfolioFilter();
   setupContactForm();
   setupAdminLogin();
   setupAdminDashboard();
+  loadCurrentAvailableDate();
   
   // Load Twitter timeline after page load
   setTimeout(loadTwitterTimeline, 1000);
 });
+
+// Make functions globally available
+window.updateAvailableDate = updateAvailableDate;
 
 // Make shareOnTwitter globally available
 window.shareOnTwitter = shareOnTwitter;
