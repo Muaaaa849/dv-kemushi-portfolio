@@ -164,7 +164,8 @@ app.get('/', async (c) => {
       
       {/* Hidden admin access - bottom right corner */}
       <a href="/admin" 
-         style="position: fixed; bottom: 0; right: 0; width: 20px; height: 20px; opacity: 0; cursor: default;"
+         style="position: fixed; bottom: 10px; right: 10px; width: 50px; height: 50px; opacity: 0; cursor: default; z-index: 9999;"
+         title=""
          aria-hidden="true">
       </a>
     </div>,
@@ -231,7 +232,8 @@ app.get('/portfolio', async (c) => {
       
       {/* Hidden admin access */}
       <a href="/admin" 
-         style="position: fixed; bottom: 0; right: 0; width: 20px; height: 20px; opacity: 0; cursor: default;"
+         style="position: fixed; bottom: 10px; right: 10px; width: 50px; height: 50px; opacity: 0; cursor: default; z-index: 9999;"
+         title=""
          aria-hidden="true">
       </a>
     </div>,
@@ -362,7 +364,8 @@ app.get('/pricing', async (c) => {
       
       {/* Hidden admin access */}
       <a href="/admin" 
-         style="position: fixed; bottom: 0; right: 0; width: 20px; height: 20px; opacity: 0; cursor: default;"
+         style="position: fixed; bottom: 10px; right: 10px; width: 50px; height: 50px; opacity: 0; cursor: default; z-index: 9999;"
+         title=""
          aria-hidden="true">
       </a>
     </div>,
@@ -488,7 +491,8 @@ app.get('/contact', async (c) => {
       
       {/* Hidden admin access */}
       <a href="/admin" 
-         style="position: fixed; bottom: 0; right: 0; width: 20px; height: 20px; opacity: 0; cursor: default;"
+         style="position: fixed; bottom: 10px; right: 10px; width: 50px; height: 50px; opacity: 0; cursor: default; z-index: 9999;"
+         title=""
          aria-hidden="true">
       </a>
     </div>,
