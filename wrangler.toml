@@ -6,7 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 # Environment variables
 [vars]
 JWT_SECRET = "your-secret-key-here"
-ADMIN_PASSWORD = "admin123"
+ADMIN_PASSWORD = "pass.phantomkemushi"
 
 # D1 Database binding
 # Replace YOUR_DATABASE_ID with the actual database ID from Cloudflare dashboard

@@ -39,9 +39,6 @@ app.get('/', async (c) => {
                 <a href="/portfolio" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Portfolio</a>
                 <a href="/pricing" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Pricing</a>
                 <a href="/contact" class="text-gray-700 hover:text-gray-900 transition whitespace-nowrap">Contact</a>
-                <a href="/admin" class="text-gray-500 hover:text-gray-700 transition text-sm whitespace-nowrap">
-                  <i class="fas fa-lock"></i>
-                </a>
               </div>
             </div>
           </div>
@@ -164,6 +161,12 @@ app.get('/', async (c) => {
           </div>
         </div>
       </footer>
+      
+      {/* Hidden admin access - bottom right corner */}
+      <a href="/admin" 
+         style="position: fixed; bottom: 0; right: 0; width: 20px; height: 20px; opacity: 0; cursor: default;"
+         aria-hidden="true">
+      </a>
     </div>,
     { title: 'DVけむし - 映像師 / Motion Graphics Designer' }
   )
@@ -225,6 +228,12 @@ app.get('/portfolio', async (c) => {
           </div>
         </div>
       </section>
+      
+      {/* Hidden admin access */}
+      <a href="/admin" 
+         style="position: fixed; bottom: 0; right: 0; width: 20px; height: 20px; opacity: 0; cursor: default;"
+         aria-hidden="true">
+      </a>
     </div>,
     { title: 'Portfolio - DVけむし' }
   )
@@ -350,6 +359,12 @@ app.get('/pricing', async (c) => {
           </div>
         </div>
       </section>
+      
+      {/* Hidden admin access */}
+      <a href="/admin" 
+         style="position: fixed; bottom: 0; right: 0; width: 20px; height: 20px; opacity: 0; cursor: default;"
+         aria-hidden="true">
+      </a>
     </div>,
     { title: '料金・制作の流れ - DVけむし' }
   )
@@ -470,6 +485,12 @@ app.get('/contact', async (c) => {
           </div>
         </div>
       </section>
+      
+      {/* Hidden admin access */}
+      <a href="/admin" 
+         style="position: fixed; bottom: 0; right: 0; width: 20px; height: 20px; opacity: 0; cursor: default;"
+         aria-hidden="true">
+      </a>
     </div>,
     { title: 'Contact - DVけむし' }
   )
