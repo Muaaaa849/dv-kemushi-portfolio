@@ -7,9 +7,9 @@
 
 ## URL
 - **開発環境**: https://3000-ihcctq8hn9zb6ka02952y-6532622b.e2b.dev
-- **本番環境**: https://dv-kemushi-portfolio.pages.dev (デプロイ後)
+- **本番環境**: https://dv-kemushi-portfolio.pages.dev (Cloudflare Pages - デプロイ中)
 - **X (Twitter)**: https://x.com/dvKemushi
-- **GitHub**: (未設定)
+- **GitHub**: https://github.com/Muaaaa849/dv-kemushi-portfolio
 
 ## 実装済み機能
 
@@ -134,8 +134,9 @@ npx wrangler pages secret put JWT_SECRET --project-name dv-kemushi-portfolio
 
 ## デプロイステータス
 - **Platform**: Cloudflare Pages
-- **Status**: ❌ 未デプロイ
+- **Status**: 🚀 デプロイ中
 - **Last Updated**: 2025-10-05
+- **GitHub**: ✅ コード同期完了
 
 ## ファイル構成
 ```
