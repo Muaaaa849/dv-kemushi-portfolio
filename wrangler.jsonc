@@ -10,4 +10,13 @@
     "JWT_SECRET": "your-secret-key-here",
     "ADMIN_PASSWORD": "admin123"
   }
+  
+  // D1 Database configuration (uncomment and configure after creating database)
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "dv-kemushi-production",
+  //     "database_id": "YOUR_DATABASE_ID"
+  //   }
+  // ]
 }

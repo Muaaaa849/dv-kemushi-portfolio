@@ -4,7 +4,7 @@ import { serveStatic } from 'hono/cloudflare-workers'
 import { renderer } from './renderer'
 
 type Bindings = {
-  DB: D1Database
+  DB?: D1Database
   JWT_SECRET: string
   ADMIN_PASSWORD: string
 }
@@ -621,6 +621,10 @@ app.post('/api/admin/login', async (c) => {
 app.get('/api/works', async (c) => {
   try {
     const { env } = c
+    if (!env.DB) {
+      // Return empty array if database is not configured
+      return c.json({ success: true, works: [] })
+    }
     const { results } = await env.DB.prepare(
       'SELECT * FROM works ORDER BY production_date DESC, created_at DESC'
     ).all()
@@ -634,6 +638,10 @@ app.get('/api/works', async (c) => {
 app.post('/api/works', async (c) => {
   const { title, category, embedCode, description, productionDate } = await c.req.json()
   const { env } = c
+  
+  if (!env.DB) {
+    return c.json({ success: false, error: 'Database not configured' }, 503)
+  }
   
   try {
     // Create table if not exists
@@ -664,6 +672,10 @@ app.post('/api/works', async (c) => {
 app.delete('/api/works/:id', async (c) => {
   const id = c.req.param('id')
   const { env } = c
+  
+  if (!env.DB) {
+    return c.json({ success: false, error: 'Database not configured' }, 503)
+  }
   
   try {
     await env.DB.prepare('DELETE FROM works WHERE id = ?').bind(id).run()
