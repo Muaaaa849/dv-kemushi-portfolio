@@ -1,0 +1,16 @@
+name = "dv-kemushi-portfolio"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "./dist"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables
+[vars]
+JWT_SECRET = "your-secret-key-here"
+ADMIN_PASSWORD = "admin123"
+
+# D1 Database binding
+# Replace YOUR_DATABASE_ID with the actual database ID from Cloudflare dashboard
+[[d1_databases]]
+binding = "DB"
+database_name = "dv-kemushi-portfolio-db"
+database_id = "e1d1b140-89b0-414a-be52-45e4359e6fd2"
